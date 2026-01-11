@@ -1,0 +1,29 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	class?: string;
+}
+
+const {
+	title = "Gakusyun - 个人博客",
+	description = "Gakusyun 的个人博客，分享技术与生活",
+	image = "/favicon.svg",
+	class: className = "",
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={description} image={image}>
+	<Navigation />
+	<main class={`main ${className}`}>
+		<div class="container">
+			<slot />
+		</div>
+	</main>
+	<Footer />
+</BaseLayout>

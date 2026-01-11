@@ -1,19 +1,16 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navigation from "../components/Navigation.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<html lang="cn">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Gakusyun - 主页</title>
-	</head>
-	<body>
-		<Navigation />
-		<h1>Gakusyun</h1>
-		<Footer />
-	</body>
-</html>
+<MainLayout title="Gakusyun - 主页" description="欢迎来到 Gakusyun 的个人博客">
+	<section class="hero">
+		<h1 class="hero-title">你好，我是 Gakusyun</h1>
+		<p class="hero-description">
+			欢迎来到我的个人博客。在这里我分享关于技术、编程和个人成长的思考与心得。
+		</p>
+		<div class="hero-actions">
+			<a href="/blog" class="btn btn-primary">阅读博客</a>
+			<a href="/about" class="btn btn-secondary">了解更多</a>
+		</div>
+	</section>
+</MainLayout>

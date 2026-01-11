@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("posts");
+	return posts.map((post) => ({
+		params: { id: post.id },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props;
+
+// 从 rendered 获取 HTML 和元数据
+const rendered = post.rendered!;
+const html = rendered.html;
+---
+
+<ArticleLayout
+	title={post.data.title}
+	published={post.data.published.toISOString()}
+	description={post.data.description}
+	tags={post.data.tags}
+	category={post.data.category}
+>
+	<div set:html={html} />
+</ArticleLayout>

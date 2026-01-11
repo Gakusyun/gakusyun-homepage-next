@@ -1,19 +1,56 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navigation from "../components/Navigation.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+// 获取所有博客文章
+const allPosts = await getCollection("posts");
+
+// 按日期降序排序
+const sortedPosts = allPosts.sort(
+	(a, b) => new Date(b.data.published).valueOf() - new Date(a.data.published).valueOf()
+);
+
+// 过滤掉草稿
+const publishedPosts = sortedPosts.filter((post) => !post.data.draft);
+
+// 格式化日期
+const formatDate = (dateString: string | Date) => {
+	const date = new Date(dateString);
+	return date.toLocaleDateString("zh-CN", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	});
+};
 ---
 
-<html lang="cn">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Gakusyun - 博客</title>
-    </head>
-    <body>
-        <Navigation />
-        <h1>博客</h1>
-        <Footer />
-    </body>
-</html>
+<MainLayout title="博客 - Gakusyun" description="浏览 Gakusyun 的所有博客文章">
+	<section>
+		<h1 class="text-center mb-4">博客文章</h1>
+		<p class="text-center text-muted mb-4">
+			共 {publishedPosts.length} 篇文章
+		</p>
+		<div class="blog-list">
+			{publishedPosts.map((post) => (
+				<article class="blog-card">
+					<h2 class="blog-card-title">
+						<a href={`/posts/${post.id}`}>{post.data.title}</a>
+					</h2>
+					{post.data.description && (
+						<p class="blog-card-description">{post.data.description}</p>
+					)}
+					<div class="blog-card-meta">
+						<time datetime={new Date(post.data.published).toISOString()}>
+							{formatDate(post.data.published)}
+						</time>
+						{post.data.category && (
+							<span class="blog-card-category">
+								{post.data.category}
+							</span>
+						)}
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+</MainLayout>

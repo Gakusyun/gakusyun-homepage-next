@@ -1,19 +1,27 @@
 ---
-import Footer from "../components/Footer.astro";
-import Navigation from "../components/Navigation.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<html lang="cn">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Gakusyun - About</title>
-    </head>
-    <body>
-        <Navigation />
-        <h1>Gakusyun</h1>
-        <Footer />
-    </body>
-</html>
+<MainLayout title="关于 - Gakusyun" description="了解更多关于 Gakusyun 的信息">
+	<section>
+		<h1>关于我</h1>
+		<p class="mt-3">
+			你好！我是 Gakusyun，一个热爱技术和编程的开发者。
+		</p>
+		<p>
+			这个博客是我记录学习过程、分享技术心得和思考个人成长的地方。我希望通过写作来整理思路，同时也希望能够帮助到其他学习者。
+		</p>
+		<h2 class="mt-4">技术栈</h2>
+		<p>我常用的技术包括：</p>
+		<ul>
+			<li>前端：JavaScript、TypeScript、React、Vue</li>
+			<li>后端：Node.js、Python</li>
+			<li>工具：Git、Docker</li>
+			<li>其他：持续学习新技术的道路上</li>
+		</ul>
+		<h2 class="mt-4">联系方式</h2>
+		<p>
+			欢迎通过博客留言或邮件与我交流。感谢你的访问！
+		</p>
+	</section>
+</MainLayout>
